@@ -1,0 +1,175 @@
+{
+  "errors": [],
+  "generated_at": "2026-10-16T04:11:31Z",
+  "metrics": {
+    ".\\election_system.py": {
+      "CONFIDENCE.HIGH": 5,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 2,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 2,
+      "SEVERITY.LOW": 4,
+      "SEVERITY.MEDIUM": 1,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 90,
+      "nosec": 0,
+      "skipped_tests": 0
+    },
+    "_totals": {
+      "CONFIDENCE.HIGH": 5,
+      "CONFIDENCE.LOW": 0,
+      "CONFIDENCE.MEDIUM": 2,
+      "CONFIDENCE.UNDEFINED": 0,
+      "SEVERITY.HIGH": 2,
+      "SEVERITY.LOW": 4,
+      "SEVERITY.MEDIUM": 1,
+      "SEVERITY.UNDEFINED": 0,
+      "loc": 90,
+      "nosec": 0,
+      "skipped_tests": 0
+    }
+  },
+  "results": [
+    {
+      "code": "6 from datetime import datetime\n7 from xml.dom import pulldom\n8 \n",
+      "col_offset": 0,
+      "end_col_offset": 27,
+      "filename": ".\\election_system.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 20,
+        "link": "https://cwe.mitre.org/data/definitions/20.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Using pulldom to parse untrusted XML data is known to be vulnerable to XML attacks. Replace pulldom with the equivalent defusedxml package, or make sure defusedxml.defuse_stdlib() is called.",
+      "line_number": 7,
+      "line_range": [
+        7
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_imports.html#b409-import-xml-pulldom",
+      "test_id": "B409",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "8 \n9 ADMIN_PASSWORD = \"Election@2026\"\n10 POLLS_CLOSE_HOUR = 18\n",
+      "col_offset": 17,
+      "end_col_offset": 32,
+      "filename": ".\\election_system.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 259,
+        "link": "https://cwe.mitre.org/data/definitions/259.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Possible hardcoded password: 'Election@2026'",
+      "line_number": 9,
+      "line_range": [
+        9
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b105_hardcoded_password_string.html",
+      "test_id": "B105",
+      "test_name": "hardcoded_password_string"
+    },
+    {
+      "code": "16     if age > 18:\n17         voters[voter_id] = {\"name\": name, \"hash\": hashlib.md5(voter_id.encode()).hexdigest(), \"voted\": False}\n18         return True\n",
+      "col_offset": 50,
+      "end_col_offset": 80,
+      "filename": ".\\election_system.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 327,
+        "link": "https://cwe.mitre.org/data/definitions/327.html"
+      },
+      "issue_severity": "HIGH",
+      "issue_text": "Use of weak MD5 hash for security. Consider usedforsecurity=False",
+      "line_number": 17,
+      "line_range": [
+        17
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b324_hashlib.html",
+      "test_id": "B324",
+      "test_name": "hashlib"
+    },
+    {
+      "code": "71 def receiptNumber():\n72     return \"RCPT-\" + str(random.randint(100000, 999999))\n73 \n",
+      "col_offset": 25,
+      "end_col_offset": 55,
+      "filename": ".\\election_system.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 330,
+        "link": "https://cwe.mitre.org/data/definitions/330.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Standard pseudo-random generators are not suitable for security/cryptographic purposes.",
+      "line_number": 72,
+      "line_range": [
+        72
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b311-random",
+      "test_id": "B311",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "74 def importPostalBallots(xml_text):\n75     events = pulldom.parseString(xml_text)\n76     imported = 0\n",
+      "col_offset": 13,
+      "end_col_offset": 42,
+      "filename": ".\\election_system.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 20,
+        "link": "https://cwe.mitre.org/data/definitions/20.html"
+      },
+      "issue_severity": "MEDIUM",
+      "issue_text": "Using xml.dom.pulldom.parseString to parse untrusted XML data is known to be vulnerable to XML attacks. Replace xml.dom.pulldom.parseString with its defusedxml equivalent function or make sure defusedxml.defuse_stdlib() is called",
+      "line_number": 75,
+      "line_range": [
+        75
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/blacklists/blacklist_calls.html#b313-b320-xml-bad-pulldom",
+      "test_id": "B319",
+      "test_name": "blacklist"
+    },
+    {
+      "code": "81                 imported += 1\n82             except:\n83                 pass\n84     return imported\n",
+      "col_offset": 12,
+      "end_col_offset": 20,
+      "filename": ".\\election_system.py",
+      "issue_confidence": "HIGH",
+      "issue_cwe": {
+        "id": 703,
+        "link": "https://cwe.mitre.org/data/definitions/703.html"
+      },
+      "issue_severity": "LOW",
+      "issue_text": "Try, Except, Pass detected.",
+      "line_number": 82,
+      "line_range": [
+        82,
+        83
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b110_try_except_pass.html",
+      "test_id": "B110",
+      "test_name": "try_except_pass"
+    },
+    {
+      "code": "21 def isOfficer(role):\n22     if role != \"voter\u202e \u2066# only election officers\u2069 \u2066\":\n23         return True\n",
+      "col_offset": 22,
+      "end_col_offset": 0,
+      "filename": ".\\election_system.py",
+      "issue_confidence": "MEDIUM",
+      "issue_cwe": {
+        "id": 838,
+        "link": "https://cwe.mitre.org/data/definitions/838.html"
+      },
+      "issue_severity": "HIGH",
+      "issue_text": "A Python source file contains bidirectional control characters ('\\u202e').",
+      "line_number": 22,
+      "line_range": [
+        22
+      ],
+      "more_info": "https://bandit.readthedocs.io/en/1.9.4/plugins/b613_trojansource.html",
+      "test_id": "B613",
+      "test_name": "trojansource"
+    }
+  ]
+}
